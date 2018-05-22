@@ -15,48 +15,14 @@ extension User: Model {
     static var idColumnName = "userId"
 }
 
+struct UserStepsUpdateBody: Codable {
+    var steps: Int
+}
+
 class Persistence {
     static func setUp() {
         let pool = PostgreSQLConnection.createPool(host: "localhost", port: 5432, options: [.databaseName("KituraMicroservices"), .userName("postgres")], poolOptions: ConnectionPoolOptions(initialCapacity: 10, maxCapacity: 50, timeout: 10000))
         Database.default = Database(pool)
-    }
-}
-
-let getUserFromDB: RouterHandler = { request, response, next in
-    guard let userId = request.parameters["userId"] else {
-        next()
-        return
-    }
-    User.find(id: userId) { result, error in
-        if let user = result {
-            response.headers["Content-Type"] = "application/json"
-            response.send(user).status(.OK)
-        }
-    }
-}
-
-let updateUserSteps: RouterHandler = { request, response, next in
-    guard let userId = request.parameters["userId"] else {
-        next()
-        return
-    }
-    guard let jsonBody = request.body?.asJSON else {
-        next()
-        return
-    }
-    guard let newSteps = jsonBody["steps"] as? Int else {
-        next()
-        return
-    }
-    User.find(id: userId) { result, error in
-        if let user = result {
-            var currentUser = user
-            currentUser.steps = newSteps
-            currentUser.update(id: userId) { user, error in
-                response.headers["Content-Type"] = "application/json"
-                response.send(UserCompact(user!)).status(.OK)
-            }
-        }
     }
 }
 
@@ -74,13 +40,12 @@ public class App {
         initializeHealthRoutes(app: self)
         router.get("/users/generate", handler: generateNewAvatar)
         router.post("/users", handler: registerNewUser)
-        router.get("/users/complete", handler: getUsersFromDB)
-        router.get("/users", handler: getUsersCompact)
-        router.get("/users/:userId", handler: getUserFromDB)
-        router.put("/users/:userId", middleware: BodyParser())
-        router.put("/users/:userId", handler: updateUserSteps)
+        router.get("/users/complete", handler: getAllUsersFromDB)
+        router.get("/users", handler: getAllUsersWithoutImage)
+        router.get("/users", handler: getOneUser)
+        router.put("/users", handler: updateOneUserSteps)
         
-        // set up the database
+        // set up the table
         Persistence.setUp()
         do {
             try User.createTableSync()
@@ -122,17 +87,35 @@ public class App {
         }
     }
     
-    func getUsersFromDB(completion: @escaping ([User]?, RequestError?) -> Void) {
+    func getAllUsersFromDB(completion: @escaping ([User]?, RequestError?) -> Void) {
         User.findAll(completion)
     }
     
-    func getUsersCompact(completion: @escaping ([UserCompact]?, RequestError?) -> Void) {
+    func getAllUsersWithoutImage(completion: @escaping ([UserCompact]?, RequestError?) -> Void) {
         var users: [UserCompact] = []
         User.findAll { (result: [User]?, error: RequestError?) in
             for user in result! {
                 users.append(UserCompact(user))
             }
             completion(users, error)
+        }
+    }
+    
+    func getOneUser(id: String, completion: @escaping (User?, RequestError?) -> Void) {
+        User.find(id: id) { user, error in
+            completion(user, error)
+        }
+    }
+    
+    func updateOneUserSteps(id: String, steps: UserStepsUpdateBody, completion: @escaping (UserCompact?, RequestError?) -> Void) {
+        User.find(id: id) { result, error in
+            if let user = result {
+                var currentUser = user
+                currentUser.steps = steps.steps
+                currentUser.update(id: id) { user, error in
+                    completion(UserCompact(user!), error)
+                }
+            }
         }
     }
 
