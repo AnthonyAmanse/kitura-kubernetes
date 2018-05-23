@@ -15,13 +15,19 @@ extension User: Model {
     static var idColumnName = "userId"
 }
 
-struct UserStepsUpdateBody: Codable {
+struct UpdateUserStepsRequest: Codable {
     var steps: Int
 }
 
 class Persistence {
     static func setUp() {
-        let pool = PostgreSQLConnection.createPool(host: "localhost", port: 5432, options: [.databaseName("KituraMicroservices"), .userName("postgres")], poolOptions: ConnectionPoolOptions(initialCapacity: 10, maxCapacity: 50, timeout: 10000))
+        let postgresHOST = ProcessInfo.processInfo.environment["POSTGRES_HOST"] ?? "localhost"
+        let postgresPORT = Int(ProcessInfo.processInfo.environment["POSTGRES_PORT"] ?? "5432")
+        let postgresUSER = ProcessInfo.processInfo.environment["POSTGRES_USER"] ?? "postgres"
+        let postgresPASSWORD = ProcessInfo.processInfo.environment["POSTGRES_PASSWORD"] ?? ""
+        let postgresDATABASE = ProcessInfo.processInfo.environment["POSTGRES_DB"] ?? "KituraMicroservices"
+        
+        let pool = PostgreSQLConnection.createPool(host: postgresHOST, port: Int32(postgresPORT!), options: [.databaseName(postgresDATABASE), .userName(postgresUSER), .password(postgresPASSWORD)], poolOptions: ConnectionPoolOptions(initialCapacity: 10, maxCapacity: 50, timeout: 10000))
         Database.default = Database(pool)
     }
 }
@@ -82,9 +88,7 @@ public class App {
         let imageData = Data(base64Encoded: avatar.image, options: .ignoreUnknownCharacters)
         let user = User(userId: UUID.init().uuidString, name: avatar.name, image: imageData!, steps: 0, stepsConvertedToFitcoin: 0, fitcoin: 0)
         
-        user?.save { user, error in
-            completion(user, error)
-        }
+        user?.save(completion)
     }
     
     func getAllUsersFromDB(completion: @escaping ([User]?, RequestError?) -> Void) {
@@ -92,26 +96,32 @@ public class App {
     }
     
     func getAllUsersWithoutImage(completion: @escaping ([UserCompact]?, RequestError?) -> Void) {
-        var users: [UserCompact] = []
-        User.findAll { (result: [User]?, error: RequestError?) in
-            for user in result! {
-                users.append(UserCompact(user))
+        var usersCompact: [UserCompact] = []
+        User.findAll { users, error in
+            for user in users! {
+                usersCompact.append(UserCompact(user))
             }
-            completion(users, error)
+            completion(usersCompact, error)
         }
     }
     
     func getOneUser(id: String, completion: @escaping (User?, RequestError?) -> Void) {
-        User.find(id: id) { user, error in
-            completion(user, error)
-        }
+        User.find(id: id, completion)
     }
     
-    func updateOneUserSteps(id: String, steps: UserStepsUpdateBody, completion: @escaping (UserCompact?, RequestError?) -> Void) {
-        User.find(id: id) { result, error in
-            if let user = result {
+    func updateOneUserSteps(id: String, request: UpdateUserStepsRequest, completion: @escaping (UserCompact?, RequestError?) -> Void) {
+        
+        // Get the user that should exist in the database
+        User.find(id: id) { user, error in
+            if let user = user {
+                
+                // update the user's data (give fitcoins, update stepsConvertedToFitcoin, update new steps)
+                // logic gives 1 fitcoin for every 100 steps
                 var currentUser = user
-                currentUser.steps = steps.steps
+                currentUser.steps = request.steps
+                let stepsToBeConverted = currentUser.steps - currentUser.stepsConvertedToFitcoin
+                currentUser.fitcoin += stepsToBeConverted / 100
+                currentUser.stepsConvertedToFitcoin += stepsToBeConverted - (stepsToBeConverted % 100)
                 currentUser.update(id: id) { user, error in
                     completion(UserCompact(user!), error)
                 }
