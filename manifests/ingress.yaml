@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+  name: ingress
+spec:
+  tls:
+    - hosts:
+        - anthony-dev.us-south.containers.mybluemix.net
+      secretName: anthony-dev
+  backend:
+    serviceName: users
+    servicePort: 8080
+  rules:
+    - host: anthony-dev.us-south.containers.mybluemix.net
+      http:
+        paths:
+          - path: /users
+            backend:
+              serviceName: users
+              servicePort: 8080
+          - path: /shop
+            backend:
+              serviceName: shop
+              servicePort: 8080
