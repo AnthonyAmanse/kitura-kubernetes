@@ -44,6 +44,7 @@ public class App {
     func postInit() throws {
         // Endpoints
         initializeHealthRoutes(app: self)
+        
         router.get("/users/generate", handler: generateNewAvatar)
         router.post("/users", handler: registerNewUser)
         router.get("/users/complete", handler: getAllUsersFromDB)
@@ -60,29 +61,50 @@ public class App {
         }
     }
     
-    func generateNewAvatar(completion: @escaping (AvatarGenerated?, RequestError?) -> Void) {
-        let urlString = "http://avatar-rainbow.mybluemix.net/new"
-        guard let url = URL(string: urlString) else {
-            print("url error")
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+    func generateNewAvatar(request: RouterRequest, response: RouterResponse, next: @escaping () -> Void) {
+        let task = URLSession.shared.dataTask(with: URL(string: "http://avatar-rainbow.mybluemix.net/new")!) { (data, res, error) in
+            
             if error != nil {
                 print(error!.localizedDescription)
                 print("No connection")
+                next()
+                return
             }
-            
-            guard let data = data else { return }
             
             do {
-                let avatar = try JSONDecoder().decode(AvatarGenerated.self, from: data)
-                completion(avatar, nil)
+                let avatar = try JSONDecoder().decode(AvatarGenerated.self, from: data!)
+                try response.status(.OK).send(avatar).end()
+                next()
             } catch let jsonError {
                 print(jsonError)
+                next()
             }
-        }.resume()
+        }
+        task.resume()
     }
+    
+    // somehow, this returns the JSON body AND a 500 code instead of 200
+//    func generateNewAvatar(completion: @escaping (AvatarGenerated?, RequestError?) -> Void) {
+//        let task = URLSession.shared.dataTask(with: URL(string: "http://avatar-rainbow.mybluemix.net/new")!) { (data, response, error) in
+//
+//            if error != nil {
+//                print(error!.localizedDescription)
+//                print("No connection")
+//                completion(nil, .notFound)
+//                return
+//            }
+//
+//            do {
+//                let avatar = try JSONDecoder().decode(AvatarGenerated.self, from: data!)
+//                completion(avatar, nil)
+//            } catch let jsonError {
+//                print(jsonError)
+//                completion(nil, .notFound)
+//                return
+//            }
+//        }
+//        task.resume()
+//    }
     
     func registerNewUser(avatar: AvatarGenerated, completion: @escaping (User?, RequestError?) -> Void) {
         let imageData = Data(base64Encoded: avatar.image, options: .ignoreUnknownCharacters)
