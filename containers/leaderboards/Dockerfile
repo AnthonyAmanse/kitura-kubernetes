@@ -1,27 +1,22 @@
-FROM ibmcom/swift-ubuntu-runtime:4.1.1
-MAINTAINER IBM Swift Engineering at IBM Cloud
-LABEL Description="Template Dockerfile that extends the ibmcom/swift-ubuntu-runtime image."
+FROM anthonyamanse/swift-ubuntu:4.2-SNAPSHOT
+# temporary snapshot image (no automated build as of yet)
 
-# We can replace this port with what the user wants
-EXPOSE 8080
+ENV DEBIAN_FRONTEND noninteractive
 
-# Default user if not provided
-ARG bx_dev_user=root
-ARG bx_dev_userid=1000
+# Install Swift Kuery PostgreSQL dependency
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+ && rm -rf /var/lib/apt/lists/*
 
-# Install system level packages
-# RUN apt-get update && apt-get dist-upgrade -y
+COPY Sources /Kitura-Project/Sources
+COPY Tests /Kitura-Project/Tests
+COPY Package.swift /Kitura-Project
+COPY Package.resolved /Kitura-Project
+COPY LICENSE /Kitura-Project
+COPY .swift-version /Kitura-Project
 
-# Add utils files
-ADD https://raw.githubusercontent.com/IBM-Swift/swift-ubuntu-docker/master/utils/run-utils.sh /swift-utils/run-utils.sh
-ADD https://raw.githubusercontent.com/IBM-Swift/swift-ubuntu-docker/master/utils/common-utils.sh /swift-utils/common-utils.sh
-RUN chmod -R 555 /swift-utils
+WORKDIR /Kitura-Project
 
-# Create user if not root
-RUN if [ $bx_dev_user != "root" ]; then useradd -ms /bin/bash -u $bx_dev_userid $bx_dev_user; fi
+RUN swift build
 
-# Bundle application source & binaries
-COPY . /swift-project
-
-# Command to start Swift application
-CMD [ "sh", "-c", "cd /swift-project && .build-ubuntu/release/leaderboards" ]
+CMD [ "swift", "run", "--skip-build" ]
