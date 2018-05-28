@@ -48,7 +48,7 @@ public class App {
         initializeHealthRoutes(app: self)
         
         router.get("/leaderboards", handler: getAllUsersSorted)
-        router.get("/leaderboards/users", handler: getUserPosition)
+        router.get("/leaderboards/user", handler: getUserPosition)
         
         Persistence.setUp()
     }
