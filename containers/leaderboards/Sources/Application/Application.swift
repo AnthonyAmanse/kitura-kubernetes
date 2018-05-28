@@ -5,9 +5,34 @@ import Configuration
 import CloudEnvironment
 import KituraContracts
 import Health
+import SwiftKueryORM
+import SwiftKueryPostgreSQL
 
 public let projectPath = ConfigurationManager.BasePath.project.path
 public let health = Health()
+
+extension User: Model {
+    static var idColumnName = "userId"
+}
+
+struct UserPosition: Codable {
+    var userPosition: Int
+    var numberOfUsers: Int
+    var userSteps: Int
+}
+
+class Persistence {
+    static func setUp() {
+        let postgresHOST = ProcessInfo.processInfo.environment["POSTGRES_HOST"] ?? "localhost"
+        let postgresPORT = Int(ProcessInfo.processInfo.environment["POSTGRES_PORT"] ?? "5432")
+        let postgresUSER = ProcessInfo.processInfo.environment["POSTGRES_USER"] ?? "postgres"
+        let postgresPASSWORD = ProcessInfo.processInfo.environment["POSTGRES_PASSWORD"] ?? ""
+        let postgresDATABASE = ProcessInfo.processInfo.environment["POSTGRES_DB"] ?? "KituraMicroservices"
+        
+        let pool = PostgreSQLConnection.createPool(host: postgresHOST, port: Int32(postgresPORT!), options: [.databaseName(postgresDATABASE), .userName(postgresUSER), .password(postgresPASSWORD)], poolOptions: ConnectionPoolOptions(initialCapacity: 10, maxCapacity: 50, timeout: 10000))
+        Database.default = Database(pool)
+    }
+}
 
 public class App {
     let router = Router()
@@ -21,6 +46,30 @@ public class App {
     func postInit() throws {
         // Endpoints
         initializeHealthRoutes(app: self)
+        
+        router.get("/leaderboards", handler: getAllUsersSorted)
+        router.get("/leaderboards/users", handler: getUserPosition)
+        
+        Persistence.setUp()
+    }
+    
+    func getAllUsersSorted(completion: @escaping ([User]?, RequestError?) -> Void) {
+        User.findAll { users, error in
+            completion(users?.sorted(by: { $0.steps > $1.steps }), error)
+        }
+    }
+    
+    func getUserPosition(id: String, completion: @escaping (UserPosition?, RequestError?) -> Void) {
+        User.findAll { users, error in
+            let allUsers = users?.sorted(by: { $0.steps > $1.steps })
+            for (index, user) in allUsers!.enumerated() {
+                if user.userId == id {
+                    print(user)
+                    completion(UserPosition(userPosition: index + 1, numberOfUsers: allUsers!.count, userSteps: user.steps), error)
+                    return
+                }
+            }
+        }
     }
 
     public func run() throws {
