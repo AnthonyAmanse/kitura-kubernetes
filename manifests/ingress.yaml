@@ -24,7 +24,7 @@ spec:
             backend:
               serviceName: shop
               servicePort: 8080
-          - path: /leaderboards
+          - path: /leaderboard
             backend:
-              serviceName: leaderboards
+              serviceName: leaderboard
               servicePort: 8080

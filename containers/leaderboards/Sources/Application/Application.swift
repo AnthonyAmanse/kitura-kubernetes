@@ -47,8 +47,8 @@ public class App {
         // Endpoints
         initializeHealthRoutes(app: self)
         
-        router.get("/leaderboards", handler: getAllUsersSorted)
-        router.get("/leaderboards/user", handler: getUserPosition)
+        router.get("/leaderboard", handler: getAllUsersSorted)
+        router.get("/leaderboard/user", handler: getUserPosition)
         
         Persistence.setUp()
     }
@@ -61,13 +61,18 @@ public class App {
     
     func getUserPosition(id: String, completion: @escaping (UserPosition?, RequestError?) -> Void) {
         User.findAll { users, error in
-            let allUsers = users?.sorted(by: { $0.steps > $1.steps })
-            for (index, user) in allUsers!.enumerated() {
-                if user.userId == id {
-                    print(user)
-                    completion(UserPosition(userPosition: index + 1, numberOfUsers: allUsers!.count, userSteps: user.steps), error)
+            guard let users = users else {
+                completion(nil, .notFound)
+                return
+            }
+            
+            User.find(id: id) { user, error in
+                guard let user = user else {
+                    completion(nil, .notFound)
                     return
                 }
+                
+                completion(UserPosition(userPosition: users.filter{$0.steps > user.steps}.count + 1, numberOfUsers: users.count, userSteps: user.steps), error)
             }
         }
     }
