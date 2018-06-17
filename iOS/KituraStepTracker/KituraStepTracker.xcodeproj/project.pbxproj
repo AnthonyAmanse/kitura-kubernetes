@@ -13,9 +13,16 @@
 		923D083220B693FE00AD519D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 923D083020B693FE00AD519D /* Main.storyboard */; };
 		923D083420B6940000AD519D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 923D083320B6940000AD519D /* Assets.xcassets */; };
 		923D083720B6940000AD519D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 923D083520B6940000AD519D /* LaunchScreen.storyboard */; };
+		923D083F20BD523700AD519D /* LeaderboardUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923D083E20BD523700AD519D /* LeaderboardUserCell.swift */; };
+		923D084120BD537F00AD519D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923D084020BD537F00AD519D /* User.swift */; };
+		923D084320BD53BF00AD519D /* LeaderboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923D084220BD53BF00AD519D /* LeaderboardViewController.swift */; };
+		928B525520D7138100FC3D98 /* LeaderboardUserHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928B525420D7138100FC3D98 /* LeaderboardUserHeaderCell.swift */; };
+		92A715B420C511FD005F847C /* User.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92A715B220C511FD005F847C /* User.xcdatamodeld */; };
+		C9CC2B69885B67A09295E8A2 /* Pods_KituraStepTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7E085684CAFCB1BEF18C95 /* Pods_KituraStepTracker.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C3B93A05E53F51850F38B65 /* Pods-KituraStepTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KituraStepTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KituraStepTracker/Pods-KituraStepTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		923D082720B693FE00AD519D /* KituraStepTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KituraStepTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		923D082A20B693FE00AD519D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		923D082C20B693FE00AD519D /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +31,13 @@
 		923D083320B6940000AD519D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		923D083620B6940000AD519D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		923D083820B6940000AD519D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		923D083E20BD523700AD519D /* LeaderboardUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardUserCell.swift; sourceTree = "<group>"; };
+		923D084020BD537F00AD519D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		923D084220BD53BF00AD519D /* LeaderboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewController.swift; sourceTree = "<group>"; };
+		928B525420D7138100FC3D98 /* LeaderboardUserHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardUserHeaderCell.swift; sourceTree = "<group>"; };
+		92A715B320C511FD005F847C /* User.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = User.xcdatamodel; sourceTree = "<group>"; };
+		CD7E085684CAFCB1BEF18C95 /* Pods_KituraStepTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KituraStepTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2C1B39DFD17F62C58B27C73 /* Pods-KituraStepTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KituraStepTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-KituraStepTracker/Pods-KituraStepTracker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +45,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9CC2B69885B67A09295E8A2 /* Pods_KituraStepTracker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14F960062653F7BE3F3C149A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4C3B93A05E53F51850F38B65 /* Pods-KituraStepTracker.debug.xcconfig */,
+				D2C1B39DFD17F62C58B27C73 /* Pods-KituraStepTracker.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		3D7602B83383968867173729 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CD7E085684CAFCB1BEF18C95 /* Pods_KituraStepTracker.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		923D081E20B693FD00AD519D = {
 			isa = PBXGroup;
 			children = (
 				923D082920B693FE00AD519D /* KituraStepTracker */,
 				923D082820B693FE00AD519D /* Products */,
+				14F960062653F7BE3F3C149A /* Pods */,
+				3D7602B83383968867173729 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +90,44 @@
 		923D082920B693FE00AD519D /* KituraStepTracker */ = {
 			isa = PBXGroup;
 			children = (
+				924B1D9720CF1499004F89DE /* Models */,
+				924B1D9520CF1448004F89DE /* Controllers */,
+				924B1D9820CF1552004F89DE /* Views */,
 				923D082A20B693FE00AD519D /* AppDelegate.swift */,
-				923D082C20B693FE00AD519D /* UserViewController.swift */,
-				923D082E20B693FE00AD519D /* ShopViewController.swift */,
 				923D083020B693FE00AD519D /* Main.storyboard */,
 				923D083320B6940000AD519D /* Assets.xcassets */,
 				923D083520B6940000AD519D /* LaunchScreen.storyboard */,
 				923D083820B6940000AD519D /* Info.plist */,
 			);
 			path = KituraStepTracker;
+			sourceTree = "<group>";
+		};
+		924B1D9520CF1448004F89DE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				923D082C20B693FE00AD519D /* UserViewController.swift */,
+				923D082E20B693FE00AD519D /* ShopViewController.swift */,
+				923D084220BD53BF00AD519D /* LeaderboardViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		924B1D9720CF1499004F89DE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				923D084020BD537F00AD519D /* User.swift */,
+				92A715B220C511FD005F847C /* User.xcdatamodeld */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		924B1D9820CF1552004F89DE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				923D083E20BD523700AD519D /* LeaderboardUserCell.swift */,
+				928B525420D7138100FC3D98 /* LeaderboardUserHeaderCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +137,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 923D083B20B6940000AD519D /* Build configuration list for PBXNativeTarget "KituraStepTracker" */;
 			buildPhases = (
+				4CDFE14ACAC4A5D61356E841 /* [CP] Check Pods Manifest.lock */,
 				923D082320B693FE00AD519D /* Sources */,
 				923D082420B693FE00AD519D /* Frameworks */,
 				923D082520B693FE00AD519D /* Resources */,
+				DA3FBAB843BC159466BCA975 /* [CP] Embed Pods Frameworks */,
+				DA834E4E7D4BC41C45BC11E4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -133,14 +199,73 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4CDFE14ACAC4A5D61356E841 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-KituraStepTracker-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DA3FBAB843BC159466BCA975 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-KituraStepTracker/Pods-KituraStepTracker-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/KituraKit/KituraKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KituraKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KituraStepTracker/Pods-KituraStepTracker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DA834E4E7D4BC41C45BC11E4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KituraStepTracker/Pods-KituraStepTracker-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		923D082320B693FE00AD519D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				923D083F20BD523700AD519D /* LeaderboardUserCell.swift in Sources */,
 				923D082F20B693FE00AD519D /* ShopViewController.swift in Sources */,
 				923D082B20B693FE00AD519D /* AppDelegate.swift in Sources */,
+				923D084120BD537F00AD519D /* User.swift in Sources */,
+				92A715B420C511FD005F847C /* User.xcdatamodeld in Sources */,
+				923D084320BD53BF00AD519D /* LeaderboardViewController.swift in Sources */,
 				923D082D20B693FE00AD519D /* UserViewController.swift in Sources */,
+				928B525520D7138100FC3D98 /* LeaderboardUserHeaderCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +407,7 @@
 		};
 		923D083C20B6940000AD519D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C3B93A05E53F51850F38B65 /* Pods-KituraStepTracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -300,6 +426,7 @@
 		};
 		923D083D20B6940000AD519D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2C1B39DFD17F62C58B27C73 /* Pods-KituraStepTracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -338,6 +465,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		92A715B220C511FD005F847C /* User.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				92A715B320C511FD005F847C /* User.xcdatamodel */,
+			);
+			currentVersion = 92A715B320C511FD005F847C /* User.xcdatamodel */;
+			path = User.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 923D081F20B693FD00AD519D /* Project object */;
 }

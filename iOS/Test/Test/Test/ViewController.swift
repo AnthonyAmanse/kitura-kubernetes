@@ -1,25 +1,18 @@
 //
-//  FirstViewController.swift
-//  KituraStepTracker
+//  ViewController.swift
+//  Test
 //
-//  Created by Joe Anthony Peter Amanse on 5/23/18.
+//  Created by Joe Anthony Peter Amanse on 6/12/18.
 //  Copyright © 2018 Joe Anthony Peter Amanse. All rights reserved.
 //
 
 import UIKit
 
-class UserViewController: UIViewController {
+class ViewController: UIViewController {
 
-    @IBOutlet weak var userScrollView: UIScrollView!
-    @IBOutlet weak var userStack: UIStackView!
-    var refreshControl: UIRefreshControl?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view, typically from a nib.
-        userScrollView.alwaysBounceVertical = true
-        
     }
 
     override func didReceiveMemoryWarning() {
