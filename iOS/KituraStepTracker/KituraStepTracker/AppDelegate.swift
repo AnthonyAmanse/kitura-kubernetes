@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If there is an existing user
         let savedUser = getUserFromLocal()
         if let savedUser = savedUser {
-            updateViewController(userId: savedUser.userId!, name: savedUser.name!, image: savedUser.avatar!)
+            updateViewController(userId: savedUser.userId!, name: savedUser.name!, image: savedUser.avatar!, fitcoins: 0)
         } else {
             getRandomAvatar(registerUser)
         }
@@ -62,8 +62,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let user = user else {
                 return
             }
-            self.showAlertWith(title: "Hi, \(user.name)!", message: "You were enrolled and given this random name.", action: UIAlertAction(title: "Cool!", style: UIAlertActionStyle.default, handler: nil))
-            self.updateViewController(userId: user.userId, name: user.name, image: user.image)
+            self.showAlertWith(title: "Hi, \(user.name)!", message: "You were enrolled and given this random name.", action: UIAlertAction(title: "Cool!", style: UIAlertActionStyle.default, handler: {(_: UIAlertAction) in
+                self.updateViewController(userId: user.userId, name: user.name, image: user.image, fitcoins: user.fitcoin)
+            }))
             self.persistUserLocal(user)
         }
     }
@@ -78,12 +79,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func updateViewController(userId: String, name: String, image: Data) {
+    func updateViewController(userId: String, name: String, image: Data, fitcoins: Int) {
         for navigationControllers in (self.window?.rootViewController?.childViewControllers)! {
             for viewController in navigationControllers.childViewControllers {
                 if viewController is UserViewController {
                     let userVC = viewController as! UserViewController
-                    userVC.updateViewWith(userId: userId, name: name, image: image)
+                    userVC.updateViewWith(userId: userId, name: name, image: image, fitcoins: fitcoins)
+                    userVC.currentUser = self.getUserFromLocal()
+                    userVC.getCurrentSteps()
+                    userVC.startUpdatingSteps()
                 }
             }
         }
