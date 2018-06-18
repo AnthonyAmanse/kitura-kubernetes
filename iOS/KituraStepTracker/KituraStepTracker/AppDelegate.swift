@@ -94,11 +94,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         do {
             let result = try managedContext.fetch(SavedUser.fetchRequest())
-            print(result.count)
+            print("Number of users: \(result.count)")
             for user in result {
                 let user = user as! SavedUser
-                print(user.userId! + " " + user.name!)
-                print(user.startDate)
+//                print(user.userId! + " " + user.name!)
+//                print(user.startDate)
                 return user
             }
         } catch {

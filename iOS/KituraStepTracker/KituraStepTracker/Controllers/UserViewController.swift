@@ -14,8 +14,9 @@ import CoreMotion
 
 class UserViewController: UIViewController {
 
+    @IBOutlet weak var userFitcoins: UILabel!
+    @IBOutlet weak var userSteps: UILabel!
     @IBOutlet weak var userScrollView: UIScrollView!
-    @IBOutlet weak var testStack: UIStackView!
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var userId: UILabel!
@@ -33,6 +34,8 @@ class UserViewController: UIViewController {
         // Clear labels
         self.userName.text = ""
         self.userId.text = ""
+        self.userSteps.text = ""
+        self.userFitcoins.text = ""
         
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -42,9 +45,6 @@ class UserViewController: UIViewController {
         self.getCurrentSteps()
     }
     
-    // Edit this one to accept user ID
-    // ID should be from core data
-    // or after registration
     func getUserWith(userId: String, enterQueue: @escaping () -> Void, leaveQueue: @escaping () -> Void) {
         enterQueue()
         guard let client = KituraKit(baseURL: self.KituraBackendUrl) else {
@@ -91,6 +91,7 @@ class UserViewController: UIViewController {
         group.enter()
         
         // test async
+        //TODO: replace with real pedometer
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
             group.leave()
         }

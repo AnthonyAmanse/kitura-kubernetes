@@ -17,6 +17,11 @@
 		923D084120BD537F00AD519D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923D084020BD537F00AD519D /* User.swift */; };
 		923D084320BD53BF00AD519D /* LeaderboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923D084220BD53BF00AD519D /* LeaderboardViewController.swift */; };
 		928B525520D7138100FC3D98 /* LeaderboardUserHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928B525420D7138100FC3D98 /* LeaderboardUserHeaderCell.swift */; };
+		928B525720D74C0900FC3D98 /* ShopProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928B525620D74C0900FC3D98 /* ShopProductCell.swift */; };
+		928B525A20D74CBE00FC3D98 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928B525820D74CBE00FC3D98 /* Product.swift */; };
+		928B525B20D74CBE00FC3D98 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928B525920D74CBE00FC3D98 /* Transaction.swift */; };
+		928B525D20D76B9E00FC3D98 /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928B525C20D76B9E00FC3D98 /* TransactionsViewController.swift */; };
+		928B525F20D7708D00FC3D98 /* TransactionsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928B525E20D7708D00FC3D98 /* TransactionsCell.swift */; };
 		92A715B420C511FD005F847C /* User.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 92A715B220C511FD005F847C /* User.xcdatamodeld */; };
 		C9CC2B69885B67A09295E8A2 /* Pods_KituraStepTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7E085684CAFCB1BEF18C95 /* Pods_KituraStepTracker.framework */; };
 /* End PBXBuildFile section */
@@ -35,6 +40,11 @@
 		923D084020BD537F00AD519D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		923D084220BD53BF00AD519D /* LeaderboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewController.swift; sourceTree = "<group>"; };
 		928B525420D7138100FC3D98 /* LeaderboardUserHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardUserHeaderCell.swift; sourceTree = "<group>"; };
+		928B525620D74C0900FC3D98 /* ShopProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopProductCell.swift; sourceTree = "<group>"; };
+		928B525820D74CBE00FC3D98 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		928B525920D74CBE00FC3D98 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		928B525C20D76B9E00FC3D98 /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
+		928B525E20D7708D00FC3D98 /* TransactionsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsCell.swift; sourceTree = "<group>"; };
 		92A715B320C511FD005F847C /* User.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = User.xcdatamodel; sourceTree = "<group>"; };
 		CD7E085684CAFCB1BEF18C95 /* Pods_KituraStepTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KituraStepTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2C1B39DFD17F62C58B27C73 /* Pods-KituraStepTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KituraStepTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-KituraStepTracker/Pods-KituraStepTracker.release.xcconfig"; sourceTree = "<group>"; };
@@ -107,6 +117,7 @@
 			children = (
 				923D082C20B693FE00AD519D /* UserViewController.swift */,
 				923D082E20B693FE00AD519D /* ShopViewController.swift */,
+				928B525C20D76B9E00FC3D98 /* TransactionsViewController.swift */,
 				923D084220BD53BF00AD519D /* LeaderboardViewController.swift */,
 			);
 			path = Controllers;
@@ -115,6 +126,8 @@
 		924B1D9720CF1499004F89DE /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				928B525820D74CBE00FC3D98 /* Product.swift */,
+				928B525920D74CBE00FC3D98 /* Transaction.swift */,
 				923D084020BD537F00AD519D /* User.swift */,
 				92A715B220C511FD005F847C /* User.xcdatamodeld */,
 			);
@@ -125,6 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				923D083E20BD523700AD519D /* LeaderboardUserCell.swift */,
+				928B525620D74C0900FC3D98 /* ShopProductCell.swift */,
+				928B525E20D7708D00FC3D98 /* TransactionsCell.swift */,
 				928B525420D7138100FC3D98 /* LeaderboardUserHeaderCell.swift */,
 			);
 			path = Views;
@@ -258,12 +273,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				928B525B20D74CBE00FC3D98 /* Transaction.swift in Sources */,
 				923D083F20BD523700AD519D /* LeaderboardUserCell.swift in Sources */,
+				928B525D20D76B9E00FC3D98 /* TransactionsViewController.swift in Sources */,
 				923D082F20B693FE00AD519D /* ShopViewController.swift in Sources */,
 				923D082B20B693FE00AD519D /* AppDelegate.swift in Sources */,
 				923D084120BD537F00AD519D /* User.swift in Sources */,
+				928B525720D74C0900FC3D98 /* ShopProductCell.swift in Sources */,
 				92A715B420C511FD005F847C /* User.xcdatamodeld in Sources */,
 				923D084320BD53BF00AD519D /* LeaderboardViewController.swift in Sources */,
+				928B525A20D74CBE00FC3D98 /* Product.swift in Sources */,
+				928B525F20D7708D00FC3D98 /* TransactionsCell.swift in Sources */,
 				923D082D20B693FE00AD519D /* UserViewController.swift in Sources */,
 				928B525520D7138100FC3D98 /* LeaderboardUserHeaderCell.swift in Sources */,
 			);

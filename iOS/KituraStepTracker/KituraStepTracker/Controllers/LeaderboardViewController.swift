@@ -29,15 +29,20 @@ class LeaderboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // get current user
         self.currentUser = (UIApplication.shared.delegate as! AppDelegate).getUserFromLocal()
         
+        // initialize class variables
         self.users = []
         self.userPosition = UserPosition(userPosition: 0, numberOfUsers: 0, userSteps: 0)
+        
+        // add delegates and datasource for leaderboard table
         self.leaderboardTable.delegate = self
         self.leaderboardTable.dataSource = self
         self.leaderboardTable.allowsSelection = false
         self.leaderboardTable.tableFooterView = UIView()
         
+        // add refresh control
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(getLeaderboard), for: .valueChanged)
         self.leaderboardTable.refreshControl = refreshControl
