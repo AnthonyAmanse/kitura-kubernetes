@@ -1,7 +1,7 @@
 # DRAFT
 # Use Full-Stack Swift to develop iOS apps with Kitura in Kubernetes
 
-In this code pattern, we will create a simple step tracker iOS app written in Swift. The application's backend will also be written in Swift with the use of Kitura, a server-side web framework for Swift. This code pattern is for iOS developers who wish to write both their frontend and backend in one language. Working in one language helps developers concentrate and spend more time in the logic of their application rather than learning or dealing with another programming language. The 3 simple Kitura microservices will be deployed in Kubernetes, a container orchestration platform.
+In this code pattern, we will create a simple step tracker iOS app written in Swift. The application's backend will also be written in Swift with the use of Kitura, a server-side web framework for Swift. This code pattern is for iOS developers who wish to write both their frontend and backend in one language. Working in one language helps developers concentrate and spend more time in the logic of their application rather than learning or dealing with another programming language. The 3 simple Kitura microservices will be deployed in Kubernetes, a container orchestration platform. The sample iOS app is a simple step tracker that rewards users with "fitcoins".
 
 When you have completed this code pattern, you will understand how to:
 
@@ -186,6 +186,11 @@ let KituraBackendUrl = "https://anthony-dev.us-south.containers.mybluemix.net"
 ## Change the variable to point to your own backend
 ## let KituraBackendUrl = "https://YOUR_INGRESS_SUBDOMAIN"
 ```
+
+* You can now build and run it in a simulator. The app should now be connected to your Kitura microservices in Kubernetes.
+> To test the step tracking part of the app, you would need a physical device with a pedometer (iPhone 5s+).
+
+![screenshot](docs/sample.jpeg)
 
 ### 6. Use your own domain name and manage certificate with Let's Encrypt
 
