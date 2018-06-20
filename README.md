@@ -1,16 +1,24 @@
 # DRAFT
 # Use Full-Stack Swift to develop iOS apps with Kitura in Kubernetes
 
-In this code pattern, we will create a simple step tracker iOS app written in Swift. The application's backend will also be written in Swift with the use of Kitura, a server-side web framework for Swift. This code pattern is for iOS developers who wish to write both their frontend and backend in one language. Working in one language helps developers concentrate and spend more time in the logic of their application rather than learning or dealing with another programming language. The Kitura microservices will be deployed in Kubernetes, a container orchestration platform.
+In this code pattern, we will create a simple step tracker iOS app written in Swift. The application's backend will also be written in Swift with the use of Kitura, a server-side web framework for Swift. This code pattern is for iOS developers who wish to write both their frontend and backend in one language. Working in one language helps developers concentrate and spend more time in the logic of their application rather than learning or dealing with another programming language. The 3 simple Kitura microservices will be deployed in Kubernetes, a container orchestration platform.
 
 When you have completed this code pattern, you will understand how to:
 
 * Build a server-side Swift application with Kitura
+* Use Kitura with Swift Kuery to connect to a Database
 * Deploy Kitura microservices in Kubernetes
-* Use Kitura with a Database
 * Integrate an iOS app with the Kitura backend
 
 ## Flow
+
+![Architecture diagram](docs/architecture.png)
+
+1. The first time the iOS app opens, it would try to register through the Users microservice.
+2. The Users microservice communicates with an external service for its avatar assignment to the user.
+3. The Users microservice then persists the user info in the database. The Users microservice would also update the steps of the users and award them "fitcoins".
+4. The Leaderboard microservice provides a way to give the users standings with their steps count.
+5. The Shop microservice will contain the products where users can exchange them with their "fitcoins".
 
 ## Included Components
 
@@ -185,7 +193,7 @@ To enable TLS in your own domain, you may want to automate issuance of the TLS c
 
 * Go to your domain registrar and create an _**A record**_ for your domain to point to the IP address of your Kubernetes ingress. You can get the IP address of your ingress by doing:
 
-![sample A record]()
+![sample A record](docs/sample-a-record.png)
 
 ```
 $ kubectl get ing
@@ -270,6 +278,7 @@ $ kubectl describe certificate
 # Links
 
 * [Kitura](https://www.kitura.io/): A powerful server-side Swift web framework.
+* [Swift-Kuery-ORM](https://github.com/IBM-Swift/Swift-Kuery-ORM): An ORM (Object Relational Mapping) library built for Swift. Using it allows you to simplify persistence of model objects with your server.
 * [cert-manager](https://cert-manager.readthedocs.io/en/latest/index.html): A native Kubernetes certificate management controller. It can help with issuing certificates from a variety of sources, such as Let’s Encrypt, HashiCorp Vault or a simple signing keypair.
 * [Deploy a Core ML model with Watson Visual Recognition](https://developer.ibm.com/code/patterns/deploy-a-core-ml-model-with-watson-visual-recognition): code pattern shows you how to create a Core ML model using Watson Visual Recognition, which is then deployed into an iOS application.
 
