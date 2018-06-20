@@ -9,6 +9,7 @@ When you have completed this code pattern, you will understand how to:
 * Use Kitura with Swift Kuery to connect to a Database
 * Deploy Kitura microservices in Kubernetes
 * Integrate an iOS app with the Kitura backend
+* Make Kubernetes available under a public domain with TLS
 
 ## Flow
 
