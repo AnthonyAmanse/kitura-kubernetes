@@ -17,8 +17,8 @@ When you have completed this code pattern, you will understand how to:
 1. The first time the iOS app opens, it would try to register through the Users microservice.
 2. The Users microservice communicates with an external service for its avatar assignment to the user.
 3. The Users microservice then persists the user info in the database. The Users microservice would also update the steps of the users and award them "fitcoins".
-4. The Leaderboard microservice provides a way to give the users standings with their steps count.
-5. The Shop microservice will contain the products where users can exchange them with their "fitcoins".
+4. The Leaderboard microservice provides a way to give the users standings with their steps count based on the stored data in the database.
+5. The Shop microservice will get the products from the database where users can exchange them with their "fitcoins". This is also where the APIs for creating the transactions on updating the "fitcoins" of the users.
 
 ## Included Components
 
